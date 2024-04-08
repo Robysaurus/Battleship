@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"E:/Battleship/Content/background.png","E:/Battleship/Content/bin/DesktopGL/background.xnb","TextureProcessor","Texture2DContent",88326,1891165,1.7564293
+"E:/Battleship/Content/Board.png","E:/Battleship/Content/bin/DesktopGL/Board.xnb","TextureProcessor","Texture2DContent",3378,570325,0.7084843
+"E:/Battleship/Content/TwoWideBoat.png","E:/Battleship/Content/bin/DesktopGL/TwoWideBoat.xnb","TextureProcessor","Texture2DContent",316,1073,0.0291012

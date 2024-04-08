@@ -32,9 +32,6 @@
       <Content Include="obj\Debug\net6.0\Battleship.pdb" />
       <Content Include="obj\Debug\net6.0\Battleship.sourcelink.json" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Boats\" />
-    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>
         <Exec Command="dotnet tool restore"/>
