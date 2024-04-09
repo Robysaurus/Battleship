@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>E:/Battleship/Content/TwoWideBoat.png</SourceFile>
+  <SourceFile>D:/Battleship/Content/TwoWideBoat.png</SourceFile>
   <SourceTime>2024-04-07T20:08:40-07:00</SourceTime>
-  <DestFile>E:/Battleship/Content/bin/DesktopGL/Content/TwoWideBoat.xnb</DestFile>
-  <DestTime>2024-04-07T20:14:04-07:00</DestTime>
+  <DestFile>D:/Battleship/Content/bin/DesktopGL/Content/TwoWideBoat.xnb</DestFile>
+  <DestTime>2024-04-08T12:49:58-07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T04:44:56-07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

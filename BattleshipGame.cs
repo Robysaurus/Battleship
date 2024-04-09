@@ -10,6 +10,7 @@ public class BattleshipGame : Game {
     private SpriteBatch spriteBatch;
 
     private Texture2D twoWideShipTexture;
+    private Texture2D strandedUnitTexture;
     private Texture2D board;
 
     private readonly int resWidth = 360;
@@ -50,6 +51,7 @@ public class BattleshipGame : Game {
         spriteBatch = new SpriteBatch(GraphicsDevice);
 
         twoWideShipTexture = Content.Load<Texture2D>("TwoWideBoat");
+        strandedUnitTexture = Content.Load<Texture2D>("StrandedUnit");
         board = Content.Load<Texture2D>("Board");
     }
 
@@ -68,6 +70,7 @@ public class BattleshipGame : Game {
         GraphicsDevice.Viewport = viewport;
         spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: scaleMatrix);
         spriteBatch.Draw(board, Vector2.Zero, Color.White);
+        spriteBatch.Draw(strandedUnitTexture, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f), null, Color.White, 0f, new Vector2(strandedUnitTexture.Width/2f, strandedUnitTexture.Height/2f), Vector2.One, SpriteEffects.None, 0f);
         spriteBatch.Draw(twoWideShipTexture, new Vector2(graphics.PreferredBackBufferWidth / 2.12f, graphics.PreferredBackBufferHeight / 2.005f), null, Color.White, 0.5f, new Vector2(twoWideShipTexture.Width / 2f, twoWideShipTexture.Height / 2f), Vector2.One, SpriteEffects.None, 0f);
         spriteBatch.End();
 
