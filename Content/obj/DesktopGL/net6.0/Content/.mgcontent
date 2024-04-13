@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Battleship/Content/Board.png</File>
-    <File>D:/Battleship/Content/StrandedUnit.png</File>
-    <File>D:/Battleship/Content/TwoWideBoat.png</File>
+    <File>E:/Battleship/Content/Board.png</File>
+    <File>E:/Battleship/Content/StrandedUnit.png</File>
+    <File>E:/Battleship/Content/TwoWideBoat.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
