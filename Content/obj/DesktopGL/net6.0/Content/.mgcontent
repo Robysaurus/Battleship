@@ -5,10 +5,12 @@
   <Config />
   <SourceFiles>
     <File>E:/Battleship/Content/Board.png</File>
+    <File>E:/Battleship/Content/PixelSCFont.spritefont</File>
     <File>E:/Battleship/Content/StrandedUnit.png</File>
     <File>E:/Battleship/Content/TwoWideBoat.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:Board.png
 
+#begin PixelSCFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PixelSCFont.spritefont
+
 #begin StrandedUnit.png
 /importer:TextureImporter
 /processor:TextureProcessor

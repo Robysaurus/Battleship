@@ -56,3 +56,4 @@ D:\Battleship\obj\Debug\net6.0\Battleship.pdb
 D:\Battleship\obj\Debug\net6.0\Battleship.genruntimeconfig.cache
 D:\Battleship\obj\Debug\net6.0\ref\Battleship.dll
 E:\Battleship\bin\Debug\net6.0\Content\StrandedUnit.xnb
+E:\Battleship\bin\Debug\net6.0\Content\PixelSCFont.xnb
