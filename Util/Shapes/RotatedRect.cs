@@ -16,9 +16,6 @@ public class RotatedRect : IShape {
 
     public bool Contains(Vector2 point) {
         Vector2 rotatedPoint = MiscMethods.RotatePoint(point, GetOrigin(), -rotation);
-        /*Console.WriteLine("mouse:"+point);
-        Console.WriteLine("rotated:"+rotatedPoint);
-        Console.WriteLine("rect:"+rect.Location+"  "+rect.Size);*/
         return rect.Contains(rotatedPoint);
     }
 
@@ -31,27 +28,20 @@ public class RotatedRect : IShape {
     }
 
     public void MoveTo(float x, float y) {
-        rect.X = (int)x;
-        rect.Y = (int)y;
+        MoveTo(new Vector2(x, y));
     }
 
     public void MoveTo(Vector2 position) {
-        rect.X = (int)position.X;
-        rect.Y = (int)position.Y;
+        MoveTo(position.ToPoint());
     }
 
     public void MoveTo(Point position) {
-        rect.X = position.X;
-        rect.Y = position.Y;
+        rect.Location = position;
     }
 
-    public void Rescale(float scale) {
-        rect.X = (int)(rect.X*scale);
-        rect.Y = (int)(rect.Y*scale);
-    }
-
-    public void Rescale(Matrix scaleMatrix, Viewport viewport) {
-        
+    public void Rescale(float scale, Vector2 viewportBounds) {
+        rect.Size = (rect.Size.ToVector2() * scale).ToPoint();
+        rect.Location = (rect.Location.ToVector2() * scale + viewportBounds).ToPoint();
     }
 
     public void SetRotation(float rads) {

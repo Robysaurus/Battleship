@@ -6,7 +6,7 @@ public static class MouseInputHandler {
     public static void HandleLeftMouseClick(Vector2 mousePos) {
         foreach (Sprite s in BattleshipGame.sprites) {
             if (s.WasClicked(mousePos)) {
-                s.UpdateSelected(true);
+                s.UpdateSelected(!s.IsSelected());
                 if (s.HasAction()) {
                     s.ExecuteAction();
                 }

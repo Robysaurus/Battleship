@@ -12,9 +12,7 @@ public interface IShape {
     public void MoveTo(float x, float y);
     public void MoveTo(Vector2 position);
     public void MoveTo(Point position);
-
-    public void Rescale(float scale);
-    public void Rescale(Matrix scaleMatrix, Viewport viewport);
+    public void Rescale(float scale, Vector2 viewportBounds);
     void SetRotation(float rads);
     
     public Vector2 GetPosition();

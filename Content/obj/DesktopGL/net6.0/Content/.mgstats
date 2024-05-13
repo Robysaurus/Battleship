@@ -1,5 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "E:/Battleship/Content/Board.png","E:/Battleship/Content/bin/DesktopGL/Content/Board.xnb","TextureProcessor","Texture2DContent",3378,570325,1.1902393
 "E:/Battleship/Content/PixelSCFont.spritefont","E:/Battleship/Content/bin/DesktopGL/Content/PixelSCFont.xnb","FontDescriptionProcessor","SpriteFontContent",2080,21535,0.34949
-"E:/Battleship/Content/StrandedUnit.png","E:/Battleship/Content/bin/DesktopGL/Content/StrandedUnit.xnb","TextureProcessor","Texture2DContent",240,805,0.0404416
-"E:/Battleship/Content/TwoWideBoat.png","E:/Battleship/Content/bin/DesktopGL/Content/TwoWideBoat.xnb","TextureProcessor","Texture2DContent",271,4133,0.0402736
+"E:/Battleship/Content/StrandedUnit.png","E:/Battleship/Content/bin/DesktopGL/Content/StrandedUnit.xnb","TextureProcessor","Texture2DContent",236,605,0.2337454
+"E:/Battleship/Content/TwoWideBoat.png","E:/Battleship/Content/bin/DesktopGL/Content/TwoWideBoat.xnb","TextureProcessor","Texture2DContent",257,1933,0.0353896

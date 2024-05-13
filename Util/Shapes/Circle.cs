@@ -19,23 +19,21 @@ public class Circle : IShape {
     }
 
     public void MoveTo(float x, float y) {
-        center = new Vector2(x, y);
+        MoveTo(new Vector2(x, y));
     }
 
     public void MoveTo(Vector2 newPos) {
-        center = newPos;
+        center = newPos + new Vector2(radius);
     }
 
     public void MoveTo(Point position) {
-        center = new Vector2(position.X, position.Y);
+        MoveTo(position.ToVector2());
     }
 
-    public void Rescale(float scale) {
+    public void Rescale(float scale, Vector2 viewportBounds) {
         radius *= scale;
-    }
-
-    public void Rescale(Matrix scaleMatrix, Viewport viewport) {
-        
+        center *= scale;
+        center += viewportBounds;
     }
 
     public Vector2 GetPosition() {

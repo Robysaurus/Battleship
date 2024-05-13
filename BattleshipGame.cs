@@ -24,7 +24,8 @@ public class BattleshipGame : Game {
     private static int virtualHeight = 396;
     private static Matrix scaleMatrix;
     private static Viewport viewport;
-    private static float aspect = virtualWidth / (float)resWidth;
+    public static float aspect = virtualWidth / (float)resWidth;
+    public static Vector2 viewportBounds = new Vector2(viewport.X, viewport.Y);
     private static bool isResizing;
     public static readonly float[] rotations = { 0.5f, (float)(Math.PI - 0.5), (float)(Math.PI + 0.5), -0.5f };
 
@@ -54,18 +55,13 @@ public class BattleshipGame : Game {
     public void OnResize(object sender, EventArgs e) {
         if (!isResizing && Window.ClientBounds.Width > 0 && Window.ClientBounds.Height > 0) {
             isResizing = true;
-            Viewport oldViewport = viewport;
-            float oldAspect = aspect;
+            
             UpdateScaleMatrix();
             
             foreach (Sprite s in sprites) {
                 if (s.GetShape() != null) {
-                    s.GetShape().Rescale(scaleMatrix, viewport);
-                    
-                    s.GetShape().MoveTo(new Vector2((s.GetShape().GetPosition().X - oldViewport.X) / oldAspect * aspect + viewport.X, (s.GetShape().GetPosition().Y - oldViewport.Y) / oldAspect * aspect + viewport.Y));
-                    s.GetShape().Rescale(aspect / oldAspect);
+                    s.GetShape().Rescale(aspect, viewportBounds);
                 }
-                
             }
             
             isResizing = false;
@@ -87,8 +83,8 @@ public class BattleshipGame : Game {
         pixelSCFont = Content.Load<SpriteFont>("PixelSCFont");
 
         boardSprite = new Sprite(boardTexture, Vector2.Zero, Vector2.Zero, 1f, 0, false, null, null, null, false);
-        twoWideShipSprite = new Sprite(twoWideShipTexture, new Vector2(graphics.PreferredBackBufferWidth / 2.12f, graphics.PreferredBackBufferHeight / 2.005f), new Vector2(twoWideShipTexture.Width / 2f, twoWideShipTexture.Height / 2f), 1f, 0.5f, true, new RotatedRect(new Rectangle((new Vector2(graphics.PreferredBackBufferWidth / 2.12f + 1 - twoWideShipTexture.Width / 2f, graphics.PreferredBackBufferHeight / 2.005f + 6 - twoWideShipTexture.Height / 2f)).ToPoint(), (new Vector2(twoWideShipTexture.Width - 2, twoWideShipTexture.Height - 12)).ToPoint()), 0.5f), null, null, true);
-        strandedUnitSprite = new Sprite(strandedUnitTexture, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f), new Vector2(strandedUnitTexture.Width/2f, strandedUnitTexture.Height/2f), 1f, 0f, false, new Circle(strandedUnitTexture.Width / 2f, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f)), null, null, false);
+        twoWideShipSprite = new Sprite(twoWideShipTexture, new Vector2(graphics.PreferredBackBufferWidth / 2.12f, graphics.PreferredBackBufferHeight / 2.005f), new Vector2(twoWideShipTexture.Width / 2f, twoWideShipTexture.Height / 2f), 1f, 0.5f, true, new RotatedRect(new Rectangle((new Vector2(graphics.PreferredBackBufferWidth / 2.12f - twoWideShipTexture.Width / 2f, graphics.PreferredBackBufferHeight / 2.005f - twoWideShipTexture.Height / 2f)).ToPoint(), (new Vector2(twoWideShipTexture.Width, twoWideShipTexture.Height)).ToPoint()), 0.5f), null, null, true);
+        strandedUnitSprite = new Sprite(strandedUnitTexture, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f), new Vector2(strandedUnitTexture.Width/2f, strandedUnitTexture.Height/2f), 1f, 0f, false, new Circle(strandedUnitTexture.Width / 2f, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f)), null, null, true);
         
         sprites = new List<Sprite>(3){
             boardSprite, twoWideShipSprite, strandedUnitSprite
@@ -100,15 +96,17 @@ public class BattleshipGame : Game {
         Vector2 mousePos = mouseState.Position.ToVector2();
         if (IsActive) {
             collision = false;
-            if (twoWideShipSprite.Contains(mousePos)) {
-                collision = true;
+            foreach (Sprite s in sprites) {
+                if (!s.GetTexture().Equals(boardTexture) && s.Contains(mousePos)) {
+                    collision = true;
+                }
             }
             
-            /*foreach (Sprite s in sprites) {
+            foreach (Sprite s in sprites) {
                 if (s.IsSelected() && s.ShouldFollowMouse()) {
-                    s.MoveTo(mousePos);
+                    s.MoveTo((mousePos - new Vector2(viewport.X, viewport.Y)) / aspect);
                 }
-            }*/
+            }
             
             if (mouseState.LeftButton == ButtonState.Pressed && !leftClickedBefore) {
                 MouseInputHandler.HandleLeftMouseClick(mousePos);
@@ -133,7 +131,7 @@ public class BattleshipGame : Game {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: scaleMatrix);
         
         foreach (Sprite s in sprites) {
-            spriteBatch.Draw(s.GetTexture(), s.GetPosition(), null, Color.White, (float)s.GetRotation(), s.GetOrigin(), s.GetScale(), SpriteEffects.None, 0);
+            spriteBatch.Draw(s.GetTexture(), s.GetPosition(), null, s.GetColor(), (float)s.GetRotation(), s.GetOrigin(), s.GetScale(), SpriteEffects.None, 0);
         }
         
         spriteBatch.DrawString(pixelSCFont, $"Collision: {collision}\nMouse: {Mouse.GetState().Position}", new Vector2(10f,10f), Color.Black);
@@ -166,5 +164,6 @@ public class BattleshipGame : Game {
             MinDepth = 0,
             MaxDepth = 1
         };
+        viewportBounds = new Vector2(viewport.X, viewport.Y);
     }
 }

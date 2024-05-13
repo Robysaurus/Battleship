@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Battleship.Util.Shapes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -19,6 +20,7 @@ public class Sprite {
     private Action<List<long>> action;
     private List<long> args;
     private readonly bool shouldFollowMouse;
+    private Color color = Color.White;
 
     public Sprite(Texture2D texture, Vector2 pos, Vector2 origin, float scale, float rot, bool isRotatable, IShape shape, Action<List<long>> action, List<long> args, bool shouldFollowMouse) {
         this.texture = texture;
@@ -65,6 +67,14 @@ public class Sprite {
         return shape;
     }
 
+    public void SetColor(Color color) {
+        this.color = color;
+    }
+
+    public Color GetColor() {
+        return color;
+    }
+
     public bool HasAction() {
         return action != null;
     }
@@ -88,7 +98,8 @@ public class Sprite {
         return isSelected;
     }
 
-    public void UpdateSelected(bool selected) {
+    public void UpdateSelected(bool selected) { 
+        SetColor(selected ? Color.Gold : Color.White);
         isSelected = selected;
     }
 
@@ -102,6 +113,6 @@ public class Sprite {
 
     public void MoveTo(Vector2 position) {
         pos = position;
-        shape.MoveTo(position);
+        shape.MoveTo(new Vector2(pos.X-origin.X, pos.Y-origin.Y) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
     }
 }
