@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Battleship.Util.Shapes;
@@ -30,10 +29,11 @@ public class Circle : IShape {
         MoveTo(position.ToVector2());
     }
 
-    public void Rescale(float scale, Vector2 viewportBounds) {
+    public void Rescale(float scale, Vector2 newViewportBounds, Vector2 oldViewportBounds) {
         radius *= scale;
+        center -= oldViewportBounds;
         center *= scale;
-        center += viewportBounds;
+        center += newViewportBounds;
     }
 
     public Vector2 GetPosition() {

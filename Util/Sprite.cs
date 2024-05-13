@@ -10,15 +10,15 @@ namespace Battleship.Util;
 public class Sprite {
     private readonly Texture2D texture;
     private Vector2 pos;
-    private Vector2 origin;
-    private float scale;
+    private readonly Vector2 origin;
+    private readonly float scale;
     private float rot;
     private int rotationNum = 0;
     private readonly bool isRotatable;
-    private IShape shape;
+    private readonly IShape shape;
     private bool isSelected = false;
-    private Action<List<long>> action;
-    private List<long> args;
+    private readonly Action<List<long>> action;
+    private readonly List<long> args;
     private readonly bool shouldFollowMouse;
     private Color color = Color.White;
 

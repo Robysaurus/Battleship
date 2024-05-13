@@ -29,8 +29,8 @@ public class BattleshipGame : Game {
     private static bool isResizing;
     public static readonly float[] rotations = { 0.5f, (float)(Math.PI - 0.5), (float)(Math.PI + 0.5), -0.5f };
 
-    public static bool leftClickedBefore = false;
-    public static bool rightClickedBefore = false;
+    private static bool leftClickedBefore = false;
+    private static bool rightClickedBefore = false;
     private static bool collision = false;
 
     private static SpriteFont pixelSCFont;
@@ -52,15 +52,16 @@ public class BattleshipGame : Game {
         Window.ClientSizeChanged += OnResize;
     }
 
-    public void OnResize(object sender, EventArgs e) {
+    private void OnResize(object sender, EventArgs e) {
         if (!isResizing && Window.ClientBounds.Width > 0 && Window.ClientBounds.Height > 0) {
             isResizing = true;
-            
+            float oldAspect = aspect;
+            Vector2 oldViewportBounds = viewportBounds;
             UpdateScaleMatrix();
             
             foreach (Sprite s in sprites) {
                 if (s.GetShape() != null) {
-                    s.GetShape().Rescale(aspect, viewportBounds);
+                    s.GetShape().Rescale(aspect/oldAspect, viewportBounds, oldViewportBounds);
                 }
             }
             
@@ -135,6 +136,7 @@ public class BattleshipGame : Game {
         }
         
         spriteBatch.DrawString(pixelSCFont, $"Collision: {collision}\nMouse: {Mouse.GetState().Position}", new Vector2(10f,10f), Color.Black);
+        spriteBatch.DrawString(pixelSCFont, $"Man: {strandedUnitSprite.GetShape().GetPosition()}\nBoat: {twoWideShipSprite.GetShape().GetPosition()}", new Vector2(10f, graphics.PreferredBackBufferHeight - 50f), Color.Black);
         
         spriteBatch.End();
 

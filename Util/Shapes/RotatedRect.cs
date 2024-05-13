@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Battleship.Util.Shapes;
@@ -39,9 +37,9 @@ public class RotatedRect : IShape {
         rect.Location = position;
     }
 
-    public void Rescale(float scale, Vector2 viewportBounds) {
+    public void Rescale(float scale, Vector2 newViewportBounds, Vector2 oldViewportBounds) {
         rect.Size = (rect.Size.ToVector2() * scale).ToPoint();
-        rect.Location = (rect.Location.ToVector2() * scale + viewportBounds).ToPoint();
+        rect.Location = ((rect.Location.ToVector2() - oldViewportBounds) * scale + newViewportBounds).ToPoint();
     }
 
     public void SetRotation(float rads) {
