@@ -25,7 +25,6 @@ E:\Battleship\obj\Debug\net6.0\Battleship.pdb
 E:\Battleship\obj\Debug\net6.0\Battleship.genruntimeconfig.cache
 E:\Battleship\obj\Debug\net6.0\ref\Battleship.dll
 E:\Battleship\bin\Debug\net6.0\Content\TwoWideBoat.xnb
-E:\Battleship\bin\Debug\net6.0\Content\Board.xnb
 D:\Battleship\bin\Debug\net6.0\Content\Board.xnb
 D:\Battleship\bin\Debug\net6.0\Content\StrandedUnit.xnb
 D:\Battleship\bin\Debug\net6.0\Content\TwoWideBoat.xnb
@@ -57,3 +56,5 @@ D:\Battleship\obj\Debug\net6.0\Battleship.genruntimeconfig.cache
 D:\Battleship\obj\Debug\net6.0\ref\Battleship.dll
 E:\Battleship\bin\Debug\net6.0\Content\StrandedUnit.xnb
 E:\Battleship\bin\Debug\net6.0\Content\PixelSCFont.xnb
+E:\Battleship\bin\Debug\net6.0\Content\P1Board.xnb
+E:\Battleship\bin\Debug\net6.0\Content\P2Board.xnb

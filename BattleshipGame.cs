@@ -16,7 +16,8 @@ public class BattleshipGame : Game {
 
     private static Texture2D twoWideShipTexture;
     private static Texture2D strandedUnitTexture;
-    private static Texture2D boardTexture;
+    private static Texture2D p1BoardTexture;
+    private static Texture2D p2BoardTexture;
 
     private const int resWidth = 360;
     private const int resHeight = 396;
@@ -27,18 +28,56 @@ public class BattleshipGame : Game {
     public static float aspect = virtualWidth / (float)resWidth;
     public static Vector2 viewportBounds = new Vector2(viewport.X, viewport.Y);
     private static bool isResizing;
-    public static readonly float[] rotations = { 0.5f, (float)(Math.PI - 0.5), (float)(Math.PI + 0.5), -0.5f };
+    public static readonly float[] rotations = { 0.5f, (float)(Math.PI/2f), (float)(Math.PI - 0.5f), (float)(Math.PI + 0.5f), (float)(Math.PI*3f/2f), -0.5f };
 
     private static bool leftClickedBefore = false;
     private static bool rightClickedBefore = false;
+    private static bool middleClickedBefore = false;
     private static bool collision = false;
 
     private static SpriteFont pixelSCFont;
 
-    private static Sprite boardSprite;
+    private static Sprite p1BoardSprite;
+    private static Sprite p2BoardSprite;
     private static Sprite twoWideShipSprite;
     private static Sprite strandedUnitSprite;
     public static List<Sprite> sprites;
+    
+    public static bool p1Turn = true;
+    public static char[][] p1Board = {
+        new char[]{ '1', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '2', '2', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '3', '3', '3', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ 't', 't', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', 't', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '4', '4', '4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '5', '5', '5', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '5', '5', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-' }
+    };
+    public static char[][] p2Board = {
+        new char[]{ '1', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '2', '2', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '3', '3', '3', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ 't', 't', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', 't', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '4', '4', '4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '5', '5', '5', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '5', '5', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-', '-' },
+        new char[]{ '-', '-', '-', '-', '-', '-', '-', '-' }
+    };
 
     public BattleshipGame() {
         graphics = new GraphicsDeviceManager(this);
@@ -80,15 +119,17 @@ public class BattleshipGame : Game {
 
         twoWideShipTexture = Content.Load<Texture2D>("TwoWideBoat");
         strandedUnitTexture = Content.Load<Texture2D>("StrandedUnit");
-        boardTexture = Content.Load<Texture2D>("Board");
+        p1BoardTexture = Content.Load<Texture2D>("P1Board");
+        p2BoardTexture = Content.Load<Texture2D>("P2Board");
         pixelSCFont = Content.Load<SpriteFont>("PixelSCFont");
 
-        boardSprite = new Sprite(boardTexture, Vector2.Zero, Vector2.Zero, 1f, 0, false, null, null, null, false);
-        twoWideShipSprite = new Sprite(twoWideShipTexture, new Vector2(graphics.PreferredBackBufferWidth / 2.12f, graphics.PreferredBackBufferHeight / 2.005f), new Vector2(twoWideShipTexture.Width / 2f, twoWideShipTexture.Height / 2f), 1f, 0.5f, true, new RotatedRect(new Rectangle((new Vector2(graphics.PreferredBackBufferWidth / 2.12f - twoWideShipTexture.Width / 2f, graphics.PreferredBackBufferHeight / 2.005f - twoWideShipTexture.Height / 2f)).ToPoint(), (new Vector2(twoWideShipTexture.Width, twoWideShipTexture.Height)).ToPoint()), 0.5f), null, null, true);
-        strandedUnitSprite = new Sprite(strandedUnitTexture, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f), new Vector2(strandedUnitTexture.Width/2f, strandedUnitTexture.Height/2f), 1f, 0f, false, new Circle(strandedUnitTexture.Width / 2f, new Vector2(graphics.PreferredBackBufferWidth/4f, graphics.PreferredBackBufferHeight/3f)), null, null, true);
+        p1BoardSprite = new Sprite(p1BoardTexture, Vector2.Zero, Vector2.Zero, 1f, 0, false, null, null, null, false, true);
+        p2BoardSprite = new Sprite(p2BoardTexture, Vector2.Zero, Vector2.Zero, 1f, 0, false, null, null, null, false, false);
+        twoWideShipSprite = new Sprite(twoWideShipTexture, MiscMethods.TranslatePosToCoords('B', 1, 1), new Vector2(twoWideShipTexture.Width/2f, twoWideShipTexture.Height/2f), 1f, rotations[0], true, new RotatedRect(new Rectangle((MiscMethods.TranslatePosToCoords('B', 1, 1) - new Vector2(twoWideShipTexture.Width / 2f, twoWideShipTexture.Height / 2f)).ToPoint(), (new Vector2(twoWideShipTexture.Width, twoWideShipTexture.Height)).ToPoint()), rotations[0]), null, null, true, true);
+        strandedUnitSprite = new Sprite(strandedUnitTexture, MiscMethods.TranslatePosToCoords('A',1,1), new Vector2(2+strandedUnitTexture.Width/2f, strandedUnitTexture.Height/2f), 1f, 0f, false, new Circle(strandedUnitTexture.Width / 2f + 1, MiscMethods.TranslatePosToCoords('A', 1, 1)), null, null, true, true);
         
-        sprites = new List<Sprite>(3){
-            boardSprite, twoWideShipSprite, strandedUnitSprite
+        sprites = new List<Sprite>(4){
+            p1BoardSprite, p2BoardSprite, twoWideShipSprite, strandedUnitSprite
         };
     }
 
@@ -96,9 +137,24 @@ public class BattleshipGame : Game {
         MouseState mouseState = Mouse.GetState();
         Vector2 mousePos = mouseState.Position.ToVector2();
         if (IsActive) {
+            if (p1Turn) {
+                p1BoardSprite.SetVisibility(true);
+                p2BoardSprite.SetVisibility(false);
+            } else {
+                p1BoardSprite.SetVisibility(false);
+                p2BoardSprite.SetVisibility(true);
+            }
+
+            if (mouseState.MiddleButton == ButtonState.Pressed && !middleClickedBefore) {
+                p1Turn = !p1Turn;
+                middleClickedBefore = true;
+            }else if (mouseState.MiddleButton == ButtonState.Released) {
+                middleClickedBefore = false;
+            }
+            
             collision = false;
             foreach (Sprite s in sprites) {
-                if (!s.GetTexture().Equals(boardTexture) && s.Contains(mousePos)) {
+                if (!s.GetTexture().Equals(p1BoardTexture) && !s.GetTexture().Equals(p2BoardTexture) && s.Contains(mousePos)) {
                     collision = true;
                 }
             }
@@ -132,7 +188,9 @@ public class BattleshipGame : Game {
         spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: scaleMatrix);
         
         foreach (Sprite s in sprites) {
-            spriteBatch.Draw(s.GetTexture(), s.GetPosition(), null, s.GetColor(), (float)s.GetRotation(), s.GetOrigin(), s.GetScale(), SpriteEffects.None, 0);
+            if (s.ShouldDraw()) {
+                spriteBatch.Draw(s.GetTexture(), s.GetPosition(), null, s.GetColor(), (float)s.GetRotation(), s.GetOrigin(), s.GetScale(), SpriteEffects.None, 0);
+            }
         }
         
         spriteBatch.DrawString(pixelSCFont, $"Collision: {collision}\nMouse: {Mouse.GetState().Position}", new Vector2(10f,10f), Color.Black);

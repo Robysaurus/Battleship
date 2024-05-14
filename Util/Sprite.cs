@@ -21,8 +21,9 @@ public class Sprite {
     private readonly List<long> args;
     private readonly bool shouldFollowMouse;
     private Color color = Color.White;
+    private bool shouldDraw;
 
-    public Sprite(Texture2D texture, Vector2 pos, Vector2 origin, float scale, float rot, bool isRotatable, IShape shape, Action<List<long>> action, List<long> args, bool shouldFollowMouse) {
+    public Sprite(Texture2D texture, Vector2 pos, Vector2 origin, float scale, float rot, bool isRotatable, IShape shape, Action<List<long>> action, List<long> args, bool shouldFollowMouse, bool shouldDraw) {
         this.texture = texture;
         this.pos = pos;
         this.origin = origin;
@@ -33,6 +34,7 @@ public class Sprite {
         this.action = action;
         this.args = args;
         this.shouldFollowMouse = shouldFollowMouse;
+        this.shouldDraw = shouldDraw;
     }
 
     public bool WasClicked(Vector2 mousePos) {
@@ -87,7 +89,7 @@ public class Sprite {
         shape.SetRotation(rads);
         rot = rads;
         rotationNum++;
-        rotationNum = rotationNum == 4 ? 0 : rotationNum;
+        rotationNum = rotationNum == 6 ? 0 : rotationNum;
     }
 
     public int GetRotationNum() {
@@ -114,5 +116,17 @@ public class Sprite {
     public void MoveTo(Vector2 position) {
         pos = position;
         shape.MoveTo(new Vector2(pos.X-origin.X, pos.Y-origin.Y) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
+    }
+
+    public bool ShouldDraw() {
+        return shouldDraw;
+    }
+
+    public void SetVisibility(bool shouldDraw) {
+        this.shouldDraw = shouldDraw;
+    }
+
+    public void SnapTo(Vector2 position) {
+        pos = position;
     }
 }
