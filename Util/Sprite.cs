@@ -37,8 +37,16 @@ public class Sprite {
         this.shouldDraw = shouldDraw;
     }
 
+    public float Width() {
+        return texture.Width;
+    }
+
+    public float Height() {
+        return texture.Height;
+    }
+
     public bool WasClicked(Vector2 mousePos) {
-        return shape!=null && Contains(mousePos);
+        return shape != null && Contains(mousePos);
     }
 
     public Texture2D GetTexture() {
@@ -100,7 +108,7 @@ public class Sprite {
         return isSelected;
     }
 
-    public void UpdateSelected(bool selected) { 
+    public void UpdateSelected(bool selected) {
         SetColor(selected ? Color.Gold : Color.White);
         isSelected = selected;
     }
@@ -115,7 +123,7 @@ public class Sprite {
 
     public void MoveTo(Vector2 position) {
         pos = position;
-        shape.MoveTo(new Vector2(pos.X-origin.X, pos.Y-origin.Y) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
+        shape.MoveTo((pos - origin) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
     }
 
     public bool ShouldDraw() {
@@ -126,7 +134,9 @@ public class Sprite {
         this.shouldDraw = shouldDraw;
     }
 
-    public void SnapTo(Vector2 position) {
-        pos = position;
+    public void SnapTipTo(Vector2 position) {
+        position /= BattleshipGame.aspect;
+        pos = position + (Width() / 2f - 8) * new Vector2(-(float)Math.Cos(Math.PI - rot), (float)Math.Sin(Math.PI - rot));
+        shape.MoveTo((pos - origin) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
     }
 }

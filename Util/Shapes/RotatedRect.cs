@@ -17,26 +17,10 @@ public class RotatedRect : IShape {
         return rect.Contains(rotatedPoint);
     }
 
-    public bool Contains(Point point) {
-        return Contains(new Vector2(point.X, point.Y));
-    }
-
-    public bool Contains(float x, float y) {
-        return Contains(new Vector2(x, y));
-    }
-
-    public void MoveTo(float x, float y) {
-        MoveTo(new Vector2(x, y));
-    }
-
     public void MoveTo(Vector2 position) {
-        MoveTo(position.ToPoint());
+        rect.Location = position.ToPoint();
     }
-
-    public void MoveTo(Point position) {
-        rect.Location = position;
-    }
-
+    
     public void Rescale(float scale, Vector2 newViewportBounds, Vector2 oldViewportBounds) {
         rect.Size = (rect.Size.ToVector2() * scale).ToPoint();
         rect.Location = ((rect.Location.ToVector2() - oldViewportBounds) * scale + newViewportBounds).ToPoint();
@@ -45,7 +29,7 @@ public class RotatedRect : IShape {
     public void SetRotation(float rads) {
         rotation = rads;
     }
-    
+
     public Vector2 GetPosition() {
         return new Vector2(rect.X, rect.Y);
     }

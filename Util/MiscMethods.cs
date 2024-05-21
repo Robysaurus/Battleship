@@ -1,8 +1,9 @@
 using System;
+using Microsoft.Xna.Framework;
 
 namespace Battleship.Util;
 
-using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Vector2 = Vector2;
 
 public static class MiscMethods {
     public static Vector2 RotatePoint(Vector2 point, Vector2 origin, float radians) {
@@ -72,11 +73,38 @@ public static class MiscMethods {
             _ => 0
         };
         y -= (row >= 8 ? col + 7 - row : col - 1) * 12;
-        
+
         return new Vector2(x, y) * scale;
     }
 
-    // public static char[] CoordsToClosestPoint(Vector2 coords) {
-    //     
-    // }
+    public static string[] CoordsToClosestPoint(Vector2 coords) {
+        for (int i = 0; i < 15; i++) {
+            for (int z = 0; z < BattleshipGame.tiles[i].Length; z++) {
+                if (BattleshipGame.tiles[i][z].Contains(coords)) {
+                    i++;
+                    z++;
+                    string col = i switch{
+                        1 => "A",
+                        2 => "B",
+                        3 => "C",
+                        4 => "D",
+                        5 => "E",
+                        6 => "F",
+                        7 => "G",
+                        8 => "H",
+                        9 => "I",
+                        10 => "J",
+                        11 => "K",
+                        12 => "L",
+                        13 => "M",
+                        14 => "N",
+                        15 => "O",
+                        _ => "Z"
+                    };
+                    return new string[]{ col, (""+z) };
+                }
+            }
+        }
+        return new string[]{ "0", "0" };
+    }
 }
