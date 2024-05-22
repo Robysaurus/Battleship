@@ -22,9 +22,12 @@ public class Sprite {
     private readonly bool shouldFollowMouse;
     private Color color = Color.White;
     private bool shouldDraw;
+    private readonly string type;
+    private string[][] occupiedTiles;
 
-    public Sprite(Texture2D texture, Vector2 pos, Vector2 origin, float scale, float rot, bool isRotatable, IShape shape, Action<List<long>> action, List<long> args, bool shouldFollowMouse, bool shouldDraw) {
+    public Sprite(Texture2D texture, string type, Vector2 pos, Vector2 origin, float scale, float rot, bool isRotatable, IShape shape, Action<List<long>> action, List<long> args, bool shouldFollowMouse, bool shouldDraw, string[][] occupiedTiles) {
         this.texture = texture;
+        this.type = type;
         this.pos = pos;
         this.origin = origin;
         this.scale = scale;
@@ -35,6 +38,21 @@ public class Sprite {
         this.args = args;
         this.shouldFollowMouse = shouldFollowMouse;
         this.shouldDraw = shouldDraw;
+        this.occupiedTiles = occupiedTiles;
+    }
+
+    public string[][] GetOccupiedTiles() {
+        return occupiedTiles;
+    }
+
+    public void UpdateOccupiedTiles(string[][] occupiedTiles) {
+        foreach (string[] tile in this.occupiedTiles) {
+            BattleshipGame.p1Board[MiscMethods.ColLetterToNumber(tile[0][0]) - 1][Int32.Parse(tile[1]) - 1] = '-';
+        }
+        this.occupiedTiles = occupiedTiles;
+        foreach (string[] tile in occupiedTiles) {
+            BattleshipGame.p1Board[MiscMethods.ColLetterToNumber(tile[0][0]) - 1][Int32.Parse(tile[1]) - 1] = type[0];
+        }
     }
 
     public float Width() {
@@ -138,5 +156,9 @@ public class Sprite {
         position /= BattleshipGame.aspect;
         pos = position + (Width() / 2f - 8) * new Vector2(-(float)Math.Cos(Math.PI - rot), (float)Math.Sin(Math.PI - rot));
         shape.MoveTo((pos - origin) * BattleshipGame.aspect + BattleshipGame.viewportBounds);
+    }
+
+    public string GetBoatType() {
+        return type;
     }
 }
