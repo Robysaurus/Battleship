@@ -4,13 +4,17 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>E:/Battleship/Content/FourWideBoat.png</File>
     <File>E:/Battleship/Content/P1Board.png</File>
     <File>E:/Battleship/Content/P2Board.png</File>
     <File>E:/Battleship/Content/PixelSCFont.spritefont</File>
     <File>E:/Battleship/Content/StrandedUnit.png</File>
+    <File>E:/Battleship/Content/ThreeWideBoat.png</File>
     <File>E:/Battleship/Content/TwoWideBoat.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

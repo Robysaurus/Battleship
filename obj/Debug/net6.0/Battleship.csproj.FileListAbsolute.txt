@@ -58,3 +58,5 @@ E:\Battleship\bin\Debug\net6.0\Content\StrandedUnit.xnb
 E:\Battleship\bin\Debug\net6.0\Content\PixelSCFont.xnb
 E:\Battleship\bin\Debug\net6.0\Content\P1Board.xnb
 E:\Battleship\bin\Debug\net6.0\Content\P2Board.xnb
+E:\Battleship\bin\Debug\net6.0\Content\ThreeWideBoat.xnb
+E:\Battleship\bin\Debug\net6.0\Content\FourWideBoat.xnb

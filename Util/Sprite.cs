@@ -49,7 +49,9 @@ public class Sprite {
         foreach (string[] tile in this.occupiedTiles) {
             BattleshipGame.p1Board[MiscMethods.ColLetterToNumber(tile[0][0]) - 1][Int32.Parse(tile[1]) - 1] = '-';
         }
+        
         this.occupiedTiles = occupiedTiles;
+        
         foreach (string[] tile in occupiedTiles) {
             BattleshipGame.p1Board[MiscMethods.ColLetterToNumber(tile[0][0]) - 1][Int32.Parse(tile[1]) - 1] = type[0];
         }

@@ -1,6 +1,8 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"E:/Battleship/Content/FourWideBoat.png","E:/Battleship/Content/bin/DesktopGL/Content/FourWideBoat.xnb","TextureProcessor","Texture2DContent",353,3957,0.2233038
 "E:/Battleship/Content/P1Board.png","E:/Battleship/Content/bin/DesktopGL/Content/P1Board.xnb","TextureProcessor","Texture2DContent",3378,570325,0.8668042
 "E:/Battleship/Content/P2Board.png","E:/Battleship/Content/bin/DesktopGL/Content/P2Board.xnb","TextureProcessor","Texture2DContent",3382,570325,0.2314001
 "E:/Battleship/Content/PixelSCFont.spritefont","E:/Battleship/Content/bin/DesktopGL/Content/PixelSCFont.xnb","FontDescriptionProcessor","SpriteFontContent",2080,21535,0.34949
 "E:/Battleship/Content/StrandedUnit.png","E:/Battleship/Content/bin/DesktopGL/Content/StrandedUnit.xnb","TextureProcessor","Texture2DContent",236,605,0.2337454
+"E:/Battleship/Content/ThreeWideBoat.png","E:/Battleship/Content/bin/DesktopGL/Content/ThreeWideBoat.xnb","TextureProcessor","Texture2DContent",290,2857,0.2318759
 "E:/Battleship/Content/TwoWideBoat.png","E:/Battleship/Content/bin/DesktopGL/Content/TwoWideBoat.xnb","TextureProcessor","Texture2DContent",257,1933,0.0353896
